@@ -1,0 +1,55 @@
+
+<form action="/parts/new">
+    <button type="submit"  class="btn btn-primary">
+         Добавить участника
+    </button>
+</form>
+
+<table class="blue table">
+  <thead>
+    <tr>
+      <th scope="col" class="w-30">Имя</th>
+      <th scope="col" class="w-30">Фамилия</th>
+      <th scope="col" class="w-30">Отчество</th>
+      <th scope="col" class="w-10">Удалить</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% i = 0 %>
+    <% while i < @parts.length %>
+      <tr>
+        <td class="w-25">
+          <a href="/parts/<%= @parts[i].id %>"> <%= @parts[i].name %> </a>
+        </td>
+        <td><a href="/parts/<%= @parts[i].id %>"><%= @parts[i].surname %> </a></td>
+        <td><a href="/parts/<%= @parts[i].id %>"><%= @parts[i].thirdname %> </a></td>
+        <td>
+          <a href="#" onclick="deletePart(<%= @parts[i].id %>)">x</a>
+        </td>
+      </tr>
+      <% i += 1 %>
+    <% end %>
+  </tbody>
+</table>
+<script>
+  function deletePart(id){
+    var request = new Request(
+      '/parts/' + id,
+      {
+        method: 'DELETE',
+        headers: {
+          'X-CSRF-Token': document.getElementsByName('csrf-token')[0].getAttribute('content')
+        }
+      });
+
+    fetch(request).
+      then(function(response){
+        window.location = "/parts";
+      }).
+      catch(function(error){
+        console.log(error);
+      });
+  };
+
+
+  </script>

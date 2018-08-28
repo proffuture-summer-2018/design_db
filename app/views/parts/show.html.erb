@@ -1,0 +1,35 @@
+
+<div class="bg">
+  <form action="/parts" method="POST">
+    <table class="table">
+     <tr>
+      <td class="4"> <input  name="name" value="<%= @part.name %>"> </td>
+       <td class="5"> <input name="surname" value="<%= @part.surname %>"> </td>
+       <td class="6"> <input name="thirdname" value="<%= @part.thirdname %>"> </td>
+       <td>
+         <button type="submit" class="btn btn-primary">Перезагрузить</button>
+       </td>
+     </tr>
+    </table>
+    <input type="hidden"
+         value="<%= form_authenticity_token %>"
+         name="authenticity_token"/>
+
+  </form>
+  <% if @works.length==0 %>
+  <h1 class="display-3">Работы этого автора ещё не загружены в каталог</h1>
+  <% else %>
+
+  <table class="blue">
+    <% i = 0 %>
+    <% while i < @works.length %>
+      <tr>
+        <td class=4>
+          <image src="<%= @works[i] %>"/>
+        </td>
+      </tr>
+      <% i += 1 %>
+    <% end %>
+  </table>
+  <% end %>
+</div>
